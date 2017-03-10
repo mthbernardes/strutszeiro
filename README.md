@@ -18,6 +18,7 @@ python strutszeiro.py
 /add url - test vulnerability and add the new server
 /exploit url *cmd - execute commands in a specific server (you need to use the * caracter)
 /botnet cmd - execute commands in all servers
+/list - show all servers in botnet
 /total - show total of servers in botnet
 </pre>
 
