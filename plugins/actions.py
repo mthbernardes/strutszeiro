@@ -38,8 +38,8 @@ class actions:
         splited = self.msg.split(' ',1)
         if len(splited) == 2 and len(splited[1].rsplit('*',1)) == 2:
             url,cmd = splited[1].rsplit('*',1)
-            print cmd
-            print url
+            cmd = cmd.strip()
+            url = url.strip()
             response = self.xpl.exploit(url,cmd)
             if response:
                 self.bot.sendMessage(self.chat_id,response)
