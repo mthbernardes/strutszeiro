@@ -21,3 +21,4 @@ python strutszeiro.py
 /total - show total of servers in botnet
 </pre>
 
+Thanks to @c0r1ng4
