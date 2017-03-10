@@ -12,14 +12,14 @@ class strutszeiro:
         if chat_id == self.allowedGROUP and chat_type == 'group' and content_type == 'text':
             actions(self.bot,msg['text'],chat_id)
         else:
-            self.bot.sendMessage(chat_id,'SAI FORA!!')
+            self.bot.sendMessage(chat_id,'GET OUT!!')
             user = msg['from']
             first_name = user['first_name'] if 'first_name' in user else ''
             last_name = user['last_name'] if 'last_name' in user else ''
             username = user['username'] if 'username' in user else ''
             userID = user['id']
             text = msg['text']
-            SOS = 'MANO ME SALVA, alguem nao autorizado tentou falar comigo, o %s %s que responde para o usuaro %s e para o id %d me mandou essa mensagem %s' % (first_name,last_name,username,userID,text)
+            SOS = 'houston we have a problem, someone is trying to talk to me, %s %s, %s owner of id %d sent me this message %s' % (first_name,last_name,username,userID,text)
             self.bot.sendMessage(self.allowedGROUP,SOS)
 
     def main(self,):
